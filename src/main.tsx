@@ -11,6 +11,7 @@ import Landing from "./pages/Landing.tsx";
 
 // Lazy load other route components
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
+const Pricing = lazy(() => import("./pages/Pricing.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 // Simple loading fallback for route transitions
@@ -65,6 +66,7 @@ createRoot(document.getElementById("root")!).render(
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/auth" element={<AuthPage redirectAfterAuth="/" />} /> {/* TODO: change redirect after auth to correct page */}
+              <Route path="/pricing" element={<Pricing />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

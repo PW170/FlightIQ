@@ -46,14 +46,13 @@ export function EmailSignupForm() {
       className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-8 shadow-xl"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
-      
+
       <div className="relative z-10">
         <h3 className="text-2xl font-bold tracking-tight mb-2">
           Unlock Custom Routes ✈️
         </h3>
         <p className="text-muted-foreground mb-6">
-          Loving these deals? Get personalized routes (NYC to Bali, anyone?) for just $2.99. 
-          Sign up free to get started!
+          Loving these deals? Get personalized routes (NYC to Bali, anyone?) for just $2.99.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -69,8 +68,8 @@ export function EmailSignupForm() {
               required
             />
           </div>
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={isLoading}
             className="whitespace-nowrap"
           >
