@@ -15,23 +15,23 @@ export function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/50 backdrop-blur-xl"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="fixed top-6 left-0 right-0 mx-auto z-50 w-[90%] max-w-5xl rounded-full border border-white/10 bg-black/20 backdrop-blur-md shadow-lg"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+      <div className="px-6">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => navigate("/")}
           >
             <div className="relative">
-              <Plane className="h-6 w-6 text-primary group-hover:rotate-12 transition-transform duration-300" />
+              <Plane className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform duration-300" />
               <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:bg-primary/40 transition-colors duration-300" />
             </div>
-            <span className="text-xl font-bold tracking-tight">
+            <span className="text-lg font-bold tracking-tight">
               Flight<span className="text-primary">IQ</span>
             </span>
           </div>
@@ -50,7 +50,8 @@ export function Navbar() {
             {isAuthenticated ? (
               <Button 
                 variant="outline" 
-                className="rounded-full border-white/10 bg-white/5 hover:bg-white/10"
+                size="sm"
+                className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 h-9 px-4"
                 onClick={() => navigate("/dashboard")}
               >
                 Dashboard
@@ -64,7 +65,8 @@ export function Navbar() {
                   Log In
                 </button>
                 <Button 
-                  className="rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10"
+                  size="sm"
+                  className="rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 h-9 px-4"
                   onClick={() => navigate("/auth")}
                 >
                   Join Now
@@ -76,7 +78,7 @@ export function Navbar() {
           {/* Mobile Navigation */}
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
