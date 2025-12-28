@@ -18,26 +18,44 @@ export type Role = Infer<typeof roleValidator>;
 
 const schema = defineSchema(
   {
-    // default auth tables using convex auth.
-    ...authTables, // do not remove or modify
+    ...authTables,
 
-    // the users table is the default users table that is brought in by the authTables
     users: defineTable({
-      name: v.optional(v.string()), // name of the user. do not remove
-      image: v.optional(v.string()), // image of the user. do not remove
-      email: v.optional(v.string()), // email of the user. do not remove
-      emailVerificationTime: v.optional(v.number()), // email verification time. do not remove
-      isAnonymous: v.optional(v.boolean()), // is the user anonymous. do not remove
+      name: v.optional(v.string()),
+      image: v.optional(v.string()),
+      email: v.optional(v.string()),
+      emailVerificationTime: v.optional(v.number()),
+      isAnonymous: v.optional(v.boolean()),
+      role: v.optional(roleValidator),
+      isPremium: v.optional(v.boolean()),
+    }).index("email", ["email"]),
 
-      role: v.optional(roleValidator), // role of the user. do not remove
-    }).index("email", ["email"]), // index for the email. do not remove or modify
+    flights: defineTable({
+      route: v.string(),
+      origin: v.string(),
+      destination: v.string(),
+      airline: v.string(),
+      price: v.number(),
+      outboundDuration: v.string(),
+      outboundStops: v.number(),
+      returnDuration: v.string(),
+      returnStops: v.number(),
+      departureDate: v.string(),
+      returnDate: v.string(),
+      priceScore: v.number(),
+      comfortScore: v.number(),
+      speedScore: v.number(),
+      notes: v.string(),
+      bookingUrl: v.string(),
+      featured: v.boolean(),
+    })
+      .index("by_featured", ["featured"])
+      .index("by_price", ["price"]),
 
-    // add other tables here
-
-    // tableName: defineTable({
-    //   ...
-    //   // table fields
-    // }).index("by_field", ["field"])
+    emailSignups: defineTable({
+      email: v.string(),
+      signupDate: v.number(),
+    }).index("by_email", ["email"]),
   },
   {
     schemaValidation: false,
