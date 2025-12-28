@@ -1,20 +1,14 @@
 import { Email } from "@convex-dev/auth/providers/Email";
-import { RandomReader, generateRandomString } from "@oslojs/crypto/random";
 
 export const emailOtp = Email({
   id: "email-otp",
   maxAge: 60 * 15, // 15 minutes
-  // This function can be asynchronous
   async generateVerificationToken() {
-    const random: RandomReader = {
-      read(bytes: Uint8Array) {
-        crypto.getRandomValues(bytes);
-      },
-    };
-    const alphabet = "0123456789";
-    return generateRandomString(random, alphabet, 6);
+    // Simple 6-digit OTP generation
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    return otp;
   },
   async sendVerificationRequest({ identifier: email, token }) {
-    console.log(`Sending OTP ${token} to ${email}`);
+    console.log(`[FlightIQ] Sending OTP ${token} to ${email}`);
   },
 });

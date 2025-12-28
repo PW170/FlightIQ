@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Plane, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
-import { useAuth } from "@/hooks/use-auth";
+import { Authenticated, Unauthenticated } from "convex/react";
 import {
   Sheet,
   SheetContent,
@@ -11,7 +11,6 @@ import {
 
 export function Navbar() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
 
   return (
     <motion.nav
@@ -47,7 +46,7 @@ export function Navbar() {
             >
               Pricing
             </button>
-            {isAuthenticated ? (
+            <Authenticated>
               <Button
                 variant="outline"
                 size="sm"
@@ -56,7 +55,8 @@ export function Navbar() {
               >
                 Dashboard
               </Button>
-            ) : (
+            </Authenticated>
+            <Unauthenticated>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => navigate("/auth")}
@@ -72,7 +72,7 @@ export function Navbar() {
                   Join Now
                 </Button>
               </div>
-            )}
+            </Unauthenticated>
           </div>
 
           {/* Mobile Navigation */}
@@ -93,15 +93,16 @@ export function Navbar() {
                 >
                   Pricing
                 </button>
-                {isAuthenticated ? (
+                <Authenticated>
                   <Button onClick={() => navigate("/dashboard")}>
                     Dashboard
                   </Button>
-                ) : (
+                </Authenticated>
+                <Unauthenticated>
                   <Button onClick={() => navigate("/auth")}>
                     Sign In
                   </Button>
-                )}
+                </Unauthenticated>
               </div>
             </SheetContent>
           </Sheet>

@@ -46,7 +46,7 @@ export function FlightDealCard({ deal, index }: FlightDealCardProps) {
       <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         <div className="relative z-10">
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
@@ -104,12 +104,12 @@ export function FlightDealCard({ deal, index }: FlightDealCardProps) {
           </div>
 
           {/* Notes */}
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+          <p className="text-sm text-slate-300 mb-4 line-clamp-2">
             {deal.notes}
           </p>
 
           {/* CTA Button */}
-          <Button 
+          <Button
             className="w-full group/btn relative overflow-hidden"
             onClick={() => window.open(deal.bookingUrl, "_blank")}
           >
