@@ -152,16 +152,6 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                 {step === "signIn" ? (
                   <>
                     <CardHeader className="space-y-2 text-center">
-                      <div className="flex justify-center">
-                        <img
-                          src="./logo.svg"
-                          alt="FlightIQ logo"
-                          width={64}
-                          height={64}
-                          className="mt-4 rounded-lg cursor-pointer transition-opacity hover:opacity-80"
-                          onClick={() => navigate("/")}
-                        />
-                      </div>
                       <CardTitle className="text-2xl">Get Started</CardTitle>
                       <CardDescription>Enter your email to log in or sign up</CardDescription>
                     </CardHeader>
@@ -301,17 +291,6 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                     </form>
                   </>
                 )}
-                <div className="rounded-b-2xl border-t border-white/10 bg-muted/20 px-6 py-4 text-center text-xs text-muted-foreground">
-                  Secured by{" "}
-                  <a
-                    href="https://vly.ai"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline transition-colors hover:text-primary"
-                  >
-                    vly.ai
-                  </a>
-                </div>
               </Card>
             </div>
           </div>

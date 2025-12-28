@@ -23,7 +23,7 @@ export function Navbar() {
       <div className="px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div 
+          <div
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => navigate("/")}
           >
@@ -38,9 +38,6 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#deals" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Daily Drops
-            </a>
             <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               How It Works
             </a>
@@ -48,8 +45,8 @@ export function Navbar() {
               Pricing
             </a>
             {isAuthenticated ? (
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 h-9 px-4"
                 onClick={() => navigate("/dashboard")}
@@ -58,13 +55,13 @@ export function Navbar() {
               </Button>
             ) : (
               <div className="flex items-center gap-4">
-                <button 
+                <button
                   onClick={() => navigate("/auth")}
                   className="text-sm font-medium hover:text-primary transition-colors"
                 >
                   Log In
                 </button>
-                <Button 
+                <Button
                   size="sm"
                   className="rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 h-9 px-4"
                   onClick={() => navigate("/auth")}
@@ -84,9 +81,6 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent className="bg-background/95 backdrop-blur-xl border-white/10">
               <div className="flex flex-col gap-4 mt-8">
-                <a href="#deals" className="text-lg hover:text-primary transition-colors">
-                  Daily Drops
-                </a>
                 <a href="#how-it-works" className="text-lg hover:text-primary transition-colors">
                   How It Works
                 </a>
