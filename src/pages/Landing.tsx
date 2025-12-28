@@ -43,7 +43,7 @@ export default function Landing() {
               <span className="text-xs font-medium tracking-wide uppercase text-muted-foreground">Daily Drops Live Now</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
               Unlock Top <br />
               Flight Deals <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50">
@@ -52,7 +52,7 @@ export default function Landing() {
               Out of Reach.
             </h1>
             
-            <p className="text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
               5 IQ Picks under $500. Europe, Asia & Americas. 
               Now just one click away.
             </p>
@@ -60,7 +60,7 @@ export default function Landing() {
             <div className="flex flex-wrap items-center gap-4 mb-16">
               <Button 
                 size="lg" 
-                className="rounded-full text-lg px-8 h-14 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all"
+                className="rounded-full text-lg px-8 h-14 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all w-full sm:w-auto"
                 onClick={() => {
                   const dealsSection = document.getElementById("deals");
                   dealsSection?.scrollIntoView({ behavior: "smooth" });
@@ -85,7 +85,7 @@ export default function Landing() {
             </div>
 
             {/* Logos Strip */}
-            <div className="flex items-center gap-8 opacity-50 grayscale">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-8 opacity-50 grayscale">
                <span className="text-lg font-bold flex items-center gap-2"><Plane className="h-5 w-5" /> Expedia</span>
                <span className="text-lg font-bold flex items-center gap-2"><Globe className="h-5 w-5" /> Skyscanner</span>
                <span className="text-lg font-bold flex items-center gap-2"><MapPin className="h-5 w-5" /> Kayak</span>
@@ -97,7 +97,7 @@ export default function Landing() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="relative h-[600px] w-full flex items-center justify-center hidden lg:flex"
+            className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full flex items-center justify-center hidden lg:flex"
           >
             {/* Center Content */}
             <div className="absolute z-20 text-center">
@@ -154,7 +154,6 @@ export default function Landing() {
                   </div>
                </div>
             </div>
-
           </motion.div>
         </div>
       </section>
@@ -169,7 +168,7 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
               Today's IQ Picks 🔥
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -223,7 +222,7 @@ export default function Landing() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
               The FlightIQ System 🎯
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
