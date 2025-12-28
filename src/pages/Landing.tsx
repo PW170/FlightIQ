@@ -89,7 +89,7 @@ export default function Landing() {
           >
             {/* Center Content */}
             <div className="absolute z-20 text-center">
-              <h3 className="text-5xl font-bold mb-2">500+</h3>
+              <h3 className="text-5xl font-bold mb-2">50+</h3>
               <p className="text-muted-foreground">Daily Deals</p>
             </div>
 
