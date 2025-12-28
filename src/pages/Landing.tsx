@@ -14,7 +14,7 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-background text-foreground font-sans selection:bg-primary/30">
+    <div className="min-h-[100dvh] relative overflow-hidden bg-background text-foreground font-sans selection:bg-primary/30">
       {/* Background Gradients matching reference */}
       <div className="fixed inset-0 pointer-events-none">
         {/* Top Left Peach/Light Glow */}
@@ -28,7 +28,7 @@ export default function Landing() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 min-h-[90vh] flex items-center">
+      <section className="relative pt-32 pb-20 px-4 min-h-[90dvh] flex items-center">
         <div className="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* Left Content */}

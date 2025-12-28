@@ -97,13 +97,13 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-[100dvh] flex flex-col w-full bg-background text-foreground">
 
       
       {/* Auth Content */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="flex items-center justify-center h-full flex-col">
-        <Card className="min-w-[350px] pb-0 border shadow-md">
+      <div className="flex-1 flex items-center justify-center p-4">
+        <div className="flex items-center justify-center h-full flex-col w-full max-w-md">
+        <Card className="w-full border shadow-md bg-card/50 backdrop-blur-lg">
           {step === "signIn" ? (
             <>
               <CardHeader className="text-center">
@@ -113,7 +113,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                       alt="Lock Icon"
                       width={64}
                       height={64}
-                      className="rounded-lg mb-4 mt-4 cursor-pointer"
+                      className="rounded-lg mb-4 mt-4 cursor-pointer hover:opacity-80 transition-opacity"
                       onClick={() => navigate("/")}
                     />
                   </div>
@@ -264,7 +264,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
             </>
           )}
 
-          <div className="py-4 px-6 text-xs text-center text-muted-foreground bg-muted border-t rounded-b-lg">
+          <div className="py-4 px-6 text-xs text-center text-muted-foreground bg-muted/50 border-t rounded-b-lg">
             Secured by{" "}
             <a
               href="https://vly.ai"
