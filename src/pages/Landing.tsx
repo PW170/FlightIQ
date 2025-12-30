@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { Plane, Sparkles, TrendingDown, Zap, Globe, MapPin, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router";
+import { Plane, Sparkles, TrendingDown, Zap, Globe, MapPin, ArrowRight, Lock } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { EmailSignupForm } from "@/components/EmailSignupForm";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Landing() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-[100dvh] relative overflow-hidden bg-background text-foreground font-sans selection:bg-primary/30">
       {/* Background Gradients */}
@@ -221,6 +223,19 @@ export default function Landing() {
           <p className="text-xs text-muted-foreground">
             We earn a small commission at no extra cost to you. Your support keeps Farely free! 🙏
           </p>
+          <div className="mt-8 flex justify-center opacity-10 hover:opacity-50 transition-opacity duration-500">
+            <button
+              onClick={() => navigate("/admin/login")}
+              onMouseEnter={() => {
+                // Preload Admin pages
+                import("./AdminLogin.tsx");
+                import("./AdminDashboard.tsx");
+              }}
+              className="p-2 text-muted-foreground/40 hover:text-primary transition-colors cursor-pointer"
+            >
+              <Lock className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </footer>
     </div>
