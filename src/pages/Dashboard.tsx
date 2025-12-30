@@ -9,24 +9,7 @@ import { useState, useEffect } from "react";
 
 export default function Dashboard() {
     const deals = useQuery(api.flights.getDailyDeals);
-    const deleteAllFlights = useMutation(api.flights.deleteAllFlights);
-    const [hasDeleted, setHasDeleted] = useState(false);
 
-    // Auto-delete all placeholder data on mount
-    useEffect(() => {
-        if (!hasDeleted) {
-            const deletePlaceholderData = async () => {
-                try {
-                    const result = await deleteAllFlights();
-                    console.log(`Deleted ${result.deleted} placeholder flight deals.`);
-                    setHasDeleted(true);
-                } catch (error) {
-                    console.error("Failed to delete placeholder flights:", error);
-                }
-            };
-            deletePlaceholderData();
-        }
-    }, [hasDeleted, deleteAllFlights]);
 
 
 

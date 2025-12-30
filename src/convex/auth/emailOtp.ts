@@ -22,7 +22,7 @@ export const emailOtp = Email({
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const { error } = await resend.emails.send({
-        from: "Farely <onboarding@resend.dev>",
+        from: "Farely <login@aspid.site>",
         to: [email],
         subject: `Your Farely Login Code: ${token}`,
         text: `Welcome back to Farely! Your verification code is: ${token}`,
