@@ -1,7 +1,7 @@
 {
-  "name": "FlightIQ",
-  "short_name": "FlightIQ",
-  "description": "FlightIQ application",
+  "name": "Farely",
+  "short_name": "Farely",
+  "description": "Farely application",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

@@ -56,3 +56,14 @@ export const addDeal = mutation({
     return dealId;
   },
 });
+
+export const deleteAllFlights = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const allFlights = await ctx.db.query("flights").collect();
+    for (const flight of allFlights) {
+      await ctx.db.delete(flight._id);
+    }
+    return { success: true, deleted: allFlights.length };
+  },
+});

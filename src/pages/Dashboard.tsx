@@ -3,28 +3,32 @@ import { api } from "../convex/_generated/api";
 import { Navbar } from "@/components/Navbar";
 import { FlightDealCard } from "@/components/FlightDealCard";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, RefreshCcw, Database } from "lucide-react";
+import { ArrowRight, Sparkles, Database } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { toast } from "sonner";
+import { useState, useEffect } from "react";
 
 export default function Dashboard() {
     const deals = useQuery(api.flights.getDailyDeals);
-    const seedFlights = useMutation(api.seed.seedFlights);
-    const [isSeeding, setIsSeeding] = useState(false);
+    const deleteAllFlights = useMutation(api.flights.deleteAllFlights);
+    const [hasDeleted, setHasDeleted] = useState(false);
 
-    const handleSeed = async () => {
-        setIsSeeding(true);
-        try {
-            await seedFlights();
-            toast.success("Demo data seeded successfully!");
-        } catch (error) {
-            console.error("Failed to seed data:", error);
-            toast.error("Failed to seed demo data.");
-        } finally {
-            setIsSeeding(false);
+    // Auto-delete all placeholder data on mount
+    useEffect(() => {
+        if (!hasDeleted) {
+            const deletePlaceholderData = async () => {
+                try {
+                    const result = await deleteAllFlights();
+                    console.log(`Deleted ${result.deleted} placeholder flight deals.`);
+                    setHasDeleted(true);
+                } catch (error) {
+                    console.error("Failed to delete placeholder flights:", error);
+                }
+            };
+            deletePlaceholderData();
         }
-    };
+    }, [hasDeleted, deleteAllFlights]);
+
+
 
     return (
         <div className="min-h-[100dvh] relative overflow-hidden bg-background text-foreground font-sans selection:bg-primary/30">
@@ -53,7 +57,7 @@ export default function Dashboard() {
                             Your Daily <span className="text-primary italic">Flight Picks</span>
                         </h1>
                         <p className="text-slate-300 text-xl leading-relaxed">
-                            Curated top-tier deals sorted by our signature <span className="text-white font-medium">FlightIQ score</span>.
+                            Curated top-tier deals sorted by our signature <span className="text-white font-medium">Farely score</span>.
                             Book fast—these prices rarely last more than 24 hours.
                         </p>
                     </motion.div>
@@ -77,34 +81,10 @@ export default function Dashboard() {
                         <div className="h-20 w-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-6 border border-white/10">
                             <Database className="h-10 w-10 text-muted-foreground" />
                         </div>
-                        <h3 className="text-3xl font-bold mb-4 text-white">No deals found today 😔</h3>
+                        <h3 className="text-3xl font-bold mb-4 text-white">No flights available</h3>
                         <p className="text-slate-400 text-lg mb-10 max-w-md mx-auto">
-                            Our curators are still hunting for the best bargains. Check back soon or seed some demo data to explore the interface.
+                            There are no flight deals in the database yet. Add flights to get started.
                         </p>
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="rounded-full px-8 h-12 border-white/20 hover:bg-white/10 transition-all gap-2 w-full sm:w-auto text-white"
-                                onClick={() => window.location.reload()}
-                            >
-                                <RefreshCcw className="h-4 w-4" />
-                                Refresh Page
-                            </Button>
-                            <Button
-                                size="lg"
-                                className="rounded-full px-8 h-12 bg-primary hover:bg-primary/90 text-white shadow-lg transition-all gap-2 w-full sm:w-auto"
-                                onClick={handleSeed}
-                                disabled={isSeeding}
-                            >
-                                {isSeeding ? (
-                                    <RefreshCcw className="h-4 w-4 animate-spin" />
-                                ) : (
-                                    <Database className="h-4 w-4" />
-                                )}
-                                {isSeeding ? "Seeding..." : "Seed Demo Data"}
-                            </Button>
-                        </div>
                     </motion.div>
                 ) : (
                     // Deals Grid

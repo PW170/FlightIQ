@@ -97,7 +97,7 @@ export default function Pricing() {
             {/* Footer */}
             <footer className="relative py-12 px-4 border-t border-white/10 mt-auto">
                 <div className="container mx-auto max-w-6xl text-center text-sm text-muted-foreground">
-                    <p>© 2025 FlightIQ. All rights reserved.</p>
+                    <p>© 2025 Farely. All rights reserved.</p>
                 </div>
             </footer>
         </div>

@@ -85,7 +85,7 @@ export function EmailSignupForm() {
         </form>
 
         <p className="text-xs text-muted-foreground mt-4">
-          We earn a small commission at no extra cost to you. Your support keeps FlightIQ free! 🙏
+          We earn a small commission at no extra cost to you. Your support keeps Farely free! 🙏
         </p>
       </div>
     </motion.div>

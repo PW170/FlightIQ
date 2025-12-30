@@ -1,17 +1,36 @@
 import { motion } from "framer-motion";
 import { Plane, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useConvexAuth } from "convex/react";
+import { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+const DASHBOARD_VISITED_KEY = "farely_dashboard_visited";
+
 export function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated, isLoading } = useConvexAuth();
+  const [hasVisitedDashboard, setHasVisitedDashboard] = useState(() => {
+    // Check sessionStorage on initial render
+    return sessionStorage.getItem(DASHBOARD_VISITED_KEY) === "true";
+  });
+
+  // Track when user visits dashboard and store in sessionStorage
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      sessionStorage.setItem(DASHBOARD_VISITED_KEY, "true");
+      setHasVisitedDashboard(true);
+    }
+  }, [location.pathname]);
+
+  // Show dashboard button if authenticated OR if user has visited dashboard this session
+  const showDashboard = isAuthenticated || hasVisitedDashboard;
 
   return (
     <motion.nav
@@ -32,7 +51,7 @@ export function Navbar() {
               <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:bg-primary/40 transition-colors duration-300" />
             </div>
             <span className="text-lg font-bold tracking-tight">
-              Flight<span className="text-primary">IQ</span>
+              Fare<span className="text-primary">ly</span>
             </span>
           </div>
 
@@ -47,7 +66,7 @@ export function Navbar() {
             >
               Pricing
             </button>
-            {!isLoading && isAuthenticated ? (
+            {!isLoading && showDashboard ? (
               <Button
                 variant="outline"
                 size="sm"
@@ -82,7 +101,10 @@ export function Navbar() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent className="bg-background/95 backdrop-blur-xl border-white/10">
+            <SheetContent
+              key={`sheet-${isAuthenticated}-${isLoading}`}
+              className="bg-background/95 backdrop-blur-xl border-white/10"
+            >
               <div className="flex flex-col gap-4 mt-8">
                 <a href="#how-it-works" className="text-lg hover:text-primary transition-colors">
                   How It Works
@@ -93,7 +115,7 @@ export function Navbar() {
                 >
                   Pricing
                 </button>
-                {!isLoading && isAuthenticated ? (
+                {!isLoading && showDashboard ? (
                   <Button onClick={() => navigate("/dashboard")}>
                     Dashboard
                   </Button>

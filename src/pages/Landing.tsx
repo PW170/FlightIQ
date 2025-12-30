@@ -157,7 +157,7 @@ export default function Landing() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              The FlightIQ System 🎯
+              The Farely System 🎯
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Our 3-checkpoint scoring ensures you only see the absolute best deals
@@ -212,14 +212,14 @@ export default function Landing() {
           <div className="flex items-center justify-center gap-2 mb-4">
             <Plane className="h-5 w-5 text-primary" />
             <span className="text-lg font-bold">
-              Flight<span className="text-primary">IQ</span>
+              Fare<span className="text-primary">ly</span>
             </span>
           </div>
           <p className="text-sm text-muted-foreground mb-2">
             Curating the best backpacker flight deals since 2025
           </p>
           <p className="text-xs text-muted-foreground">
-            We earn a small commission at no extra cost to you. Your support keeps FlightIQ free! 🙏
+            We earn a small commission at no extra cost to you. Your support keeps Farely free! 🙏
           </p>
         </div>
       </footer>
