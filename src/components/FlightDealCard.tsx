@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Plane, Clock, MapPin, TrendingDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
 
 interface FlightDeal {
   _id: string;
@@ -29,10 +31,17 @@ interface FlightDealCardProps {
 }
 
 export function FlightDealCard({ deal, index }: FlightDealCardProps) {
+  const recordView = useMutation(api.flights.recordFlightView);
+
   const getScoreEmoji = (score: number) => {
     if (score >= 90) return "🔥";
     if (score >= 80) return "✨";
     return "👍";
+  };
+
+  const handleBookNow = () => {
+    recordView({ flightId: deal._id as any });
+    window.open(deal.bookingUrl, "_blank");
   };
 
   return (
@@ -111,7 +120,7 @@ export function FlightDealCard({ deal, index }: FlightDealCardProps) {
           {/* CTA Button */}
           <Button
             className="w-full group/btn relative overflow-hidden"
-            onClick={() => window.open(deal.bookingUrl, "_blank")}
+            onClick={handleBookNow}
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
               <TrendingDown className="h-4 w-4" />

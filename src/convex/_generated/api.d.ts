@@ -10,9 +10,11 @@
 
 import type * as auth from "../auth.js";
 import type * as auth_emailOtp from "../auth/emailOtp.js";
+import type * as debug from "../debug.js";
 import type * as emailSignups from "../emailSignups.js";
 import type * as flights from "../flights.js";
 import type * as http from "../http.js";
+import type * as notifications from "../notifications.js";
 import type * as seed from "../seed.js";
 import type * as seedFlights from "../seedFlights.js";
 import type * as users from "../users.js";
@@ -26,9 +28,11 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   "auth/emailOtp": typeof auth_emailOtp;
+  debug: typeof debug;
   emailSignups: typeof emailSignups;
   flights: typeof flights;
   http: typeof http;
+  notifications: typeof notifications;
   seed: typeof seed;
   seedFlights: typeof seedFlights;
   users: typeof users;

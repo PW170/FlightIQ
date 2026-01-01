@@ -1,96 +1,82 @@
-import { useQuery, useMutation } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
-import { Navbar } from "@/components/Navbar";
+import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { FlightDealCard } from "@/components/FlightDealCard";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Database } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { TrendingUp, Plane, Bell, Database } from "lucide-react";
 
 export default function Dashboard() {
     const deals = useQuery(api.flights.getDailyDeals);
+    const user = useQuery(api.users.currentUser);
 
-
-
+    const userName = user?.name || (user?.email?.split('@')[0]) || "Traveler";
 
     return (
-        <div className="min-h-[100dvh] relative overflow-hidden bg-background text-foreground font-sans selection:bg-primary/30">
-            {/* Background Gradients */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-orange-200/10 blur-[120px]" />
-                <div className="absolute top-[20%] right-[0%] w-[60%] h-[60%] rounded-full bg-purple-900/20 blur-[100px]" />
-                <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background z-[-1]" />
-            </div>
-
-            <Navbar />
-
-            <main className="container mx-auto px-4 pt-32 pb-20 relative z-10">
-                {/* Header Section */}
-                <div className="mb-16 text-center max-w-3xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-primary text-sm font-semibold mb-6 shadow-[0_0_20px_rgba(var(--primary),0.2)]">
-                            <Sparkles className="h-4 w-4" />
-                            <span>Fresh Deals Dropped Today</span>
-                        </div>
-                        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-white drop-shadow-sm">
-                            Your Daily <span className="text-primary italic">Flight Picks</span>
-                        </h1>
-                        <p className="text-slate-300 text-xl leading-relaxed">
-                            Curated top-tier deals sorted by our signature <span className="text-white font-medium">Farely score</span>.
-                            Book fast—these prices rarely last more than 24 hours.
-                        </p>
-                    </motion.div>
+        <DashboardLayout>
+            <div className="max-w-7xl mx-auto space-y-8">
+                {/* Welcome Header */}
+                <div className="pb-2">
+                    <h1 className="text-3xl font-bold tracking-tight italic">Welcome back, {userName}</h1>
+                    <p className="text-muted-foreground">Here's what we found for you today.</p>
                 </div>
 
-                {/* Content Section */}
+                {/* Stats Row */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[
+                        { label: "Total Savings Potential", value: "$4,250", icon: TrendingUp, color: "text-green-500" },
+                        { label: "Active Deal Alerts", value: "12", icon: Bell, color: "text-amber-500" },
+                        { label: "Tracked Routes", value: "8", icon: Plane, color: "text-blue-500" },
+                    ].map((stat, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            className="bg-card border border-border/50 rounded-xl p-6 flex items-start justify-between hover:border-border transition-colors"
+                        >
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
+                                <h3 className="text-2xl font-bold mt-2">{stat.value}</h3>
+                            </div>
+                            <div className={`p-3 rounded-lg bg-white/5 ${stat.color}`}>
+                                <stat.icon className="h-5 w-5" />
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Section Header */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-2xl font-bold tracking-tight">Daily Opportunities</h2>
+                        <p className="text-muted-foreground">High-value flights detected in the last 24 hours.</p>
+                    </div>
+                </div>
+
+                {/* Content Grid */}
                 {deals === undefined ? (
                     // Loading State
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-[450px] rounded-3xl bg-white/5 animate-pulse border border-white/10" />
+                            <div key={i} className="h-[300px] rounded-2xl bg-white/5 animate-pulse border border-white/10" />
                         ))}
                     </div>
                 ) : deals.length === 0 ? (
                     // Empty State
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-20 px-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl max-w-2xl mx-auto shadow-2xl"
-                    >
-                        <div className="h-20 w-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-6 border border-white/10">
-                            <Database className="h-10 w-10 text-muted-foreground" />
-                        </div>
-                        <h3 className="text-3xl font-bold mb-4 text-white">No flights available</h3>
-                        <p className="text-slate-400 text-lg mb-10 max-w-md mx-auto">
-                            There are no flight deals in the database yet. Add flights to get started.
-                        </p>
-                    </motion.div>
+                    <div className="text-center py-20 rounded-2xl border border-dashed border-white/10 bg-white/5">
+                        <Database className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold mb-2">No deals found</h3>
+                        <p className="text-muted-foreground">Check back later for new inventory.</p>
+                    </div>
                 ) : (
                     // Deals Grid
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {deals.map((deal, index) => (
                             <FlightDealCard key={deal._id} deal={deal} index={index} />
                         ))}
                     </div>
                 )}
-
-                {/* Footer CTA */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mt-24 text-center pb-10"
-                >
-                    <p className="text-slate-400 text-lg mb-4">Want more custom alerts?</p>
-                    <Button variant="link" className="text-primary text-lg group h-auto p-0 hover:no-underline underline-offset-8 decoration-primary/30">
-                        Configure Alerts <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                </motion.div>
-            </main>
-        </div>
+            </div>
+        </DashboardLayout>
     );
 }

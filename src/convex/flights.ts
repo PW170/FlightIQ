@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
 export const getDailyDeals = query({
   args: {},
@@ -10,6 +11,54 @@ export const getDailyDeals = query({
       .order("desc")
       .take(10);
     return deals;
+  },
+});
+
+export const recordFlightView = mutation({
+  args: { flightId: v.id("flights") },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      return; // Or throw error
+    }
+
+    // Record the view
+    await ctx.db.insert("flightHistory", {
+      userId,
+      flightId: args.flightId,
+      timestamp: Date.now(),
+    });
+
+    return { success: true };
+  },
+});
+
+export const getFlightHistory = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      return [];
+    }
+
+    const history = await ctx.db
+      .query("flightHistory")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .order("desc")
+      .take(50);
+
+    // Fetch full flight details for each history entry
+    const results = await Promise.all(
+      history.map(async (entry) => {
+        const flight = await ctx.db.get(entry.flightId);
+        return {
+          ...entry,
+          flight,
+        };
+      })
+    );
+
+    return results.filter((r) => r.flight !== null);
   },
 });
 

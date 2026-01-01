@@ -28,6 +28,7 @@ const schema = defineSchema(
       isAnonymous: v.optional(v.boolean()),
       role: v.optional(roleValidator),
       isPremium: v.optional(v.boolean()),
+      plan: v.optional(v.string()), // "free" | "pro"
     }).index("email", ["email"]),
 
     flights: defineTable({
@@ -56,6 +57,22 @@ const schema = defineSchema(
       email: v.string(),
       signupDate: v.number(),
     }).index("by_email", ["email"]),
+
+    notifications: defineTable({
+      userId: v.id("users"),
+      title: v.string(),
+      message: v.string(),
+      isRead: v.boolean(),
+      timestamp: v.number(),
+      type: v.string(), // "alert" | "system" | "promo"
+    }).index("by_user", ["userId"]),
+
+    flightHistory: defineTable({
+      userId: v.id("users"),
+      flightId: v.id("flights"),
+      timestamp: v.number(),
+    }).index("by_user", ["userId"])
+      .index("by_user_and_timestamp", ["userId", "timestamp"]),
   },
   {
     schemaValidation: false,

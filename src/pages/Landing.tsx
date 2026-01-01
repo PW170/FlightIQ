@@ -1,241 +1,202 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
-import { Plane, Sparkles, TrendingDown, Zap, Globe, MapPin, ArrowRight, Lock } from "lucide-react";
+import { Plane, ArrowRight, Lock, TrendingUp, Armchair, Zap } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { EmailSignupForm } from "@/components/EmailSignupForm";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Landing() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-[100dvh] relative overflow-hidden bg-background text-foreground font-sans selection:bg-primary/30">
-      {/* Background Gradients */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Top Left Peach/Light Glow */}
-        <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-orange-200/10 blur-[120px]" />
-        {/* Bottom Right Purple Glow */}
-        <div className="absolute top-[20%] right-[0%] w-[60%] h-[60%] rounded-full bg-purple-900/20 blur-[100px]" />
-        {/* Center Deep Blue/Purple */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-background/80 z-[-1]" />
+    <div className="min-h-screen relative overflow-hidden text-foreground selection:bg-primary/20">
+
+      {/* Subtle Background Glows */}
+      <div className="fixed inset-0 pointer-events-none z-[-1]">
+        <div className="absolute top-[-20%] left-[20%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[10%] w-[600px] h-[600px] rounded-full bg-indigo-500/5 blur-[120px]" />
       </div>
 
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 min-h-[90dvh] flex items-center">
-        <div className="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative pt-40 pb-20 px-6 min-h-[90dvh] flex flex-col justify-center items-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="container mx-auto max-w-5xl"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+            <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Live Deals Active</span>
+          </div>
 
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-left z-10"
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
-              Unlock Top <br />
-              Flight Deals <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50">
-                You Thought Were
-              </span> <br />
-              Out of Reach.
-            </h1>
+          <h1 className="text-6xl sm:text-7xl md:text-9xl font-bold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/60">
+            TRAVEL <br className="hidden md:block" /> WITHOUT LIMITS
+          </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
-              Premium flight deals curators. Europe, Asia & Americas.
-              Now just one click away.
-            </p>
+          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+            We curate the impossible. Premium flight deals providing luxury for the price of economy.
+            <br className="hidden sm:block" /> Experience the world, unbroken.
+          </p>
 
-            <div className="flex flex-wrap items-center gap-4 mb-16">
-              <Button
-                size="lg"
-                className="rounded-full text-lg px-8 h-14 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all w-full sm:w-auto"
-                onClick={() => {
-                  const howItWorksSection = document.getElementById("how-it-works");
-                  howItWorksSection?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Start Exploring <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              size="lg"
+              className="rounded-full text-base font-semibold px-8 h-12 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_20px_rgba(var(--primary),0.3)] transition-all hover:scale-105"
+              onClick={() => {
+                const howItWorksSection = document.getElementById("how-it-works");
+                howItWorksSection?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Start Your Journey
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-full text-base font-medium px-8 h-12 border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md transition-all"
+            >
+              View Recent Deals
+            </Button>
+          </div>
+        </motion.div>
 
-              <div className="flex items-center gap-4 ml-4">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-10 w-10 rounded-full border-2 border-background bg-muted flex items-center justify-center overflow-hidden">
-                      <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" className="h-full w-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-                <div className="text-sm">
-                  <p className="font-bold">20k+</p>
-                  <p className="text-muted-foreground text-xs">Happy Travelers</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Logos Strip */}
-            <div className="flex flex-wrap items-center gap-6 sm:gap-8 opacity-50 grayscale">
-              <span className="text-lg font-bold flex items-center gap-2"><Plane className="h-5 w-5" /> Expedia</span>
-              <span className="text-lg font-bold flex items-center gap-2"><Globe className="h-5 w-5" /> Skyscanner</span>
-              <span className="text-lg font-bold flex items-center gap-2"><MapPin className="h-5 w-5" /> Kayak</span>
-            </div>
-          </motion.div>
-
-          {/* Right Visual - Orbit System */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full flex items-center justify-center hidden lg:flex"
-          >
-            {/* Center Content */}
-            <div className="absolute z-20 text-center">
-              <h3 className="text-5xl font-bold mb-2">50+</h3>
-              <p className="text-muted-foreground">Daily Deals</p>
-            </div>
-
-            {/* Orbit Rings */}
-            <div className="absolute border border-white/5 rounded-full w-[300px] h-[300px]" />
-            <div className="absolute border border-white/5 rounded-full w-[450px] h-[450px]" />
-            <div className="absolute border border-white/5 rounded-full w-[600px] h-[600px]" />
-
-            {/* Orbiting Elements - Ring 1 */}
-            <div className="absolute w-[300px] h-[300px] animate-spin [animation-duration:20s]">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="h-12 w-12 rounded-2xl bg-primary/20 backdrop-blur-md border border-primary/50 flex items-center justify-center text-2xl shadow-[0_0_30px_rgba(var(--primary),0.5)]">
-                  ✈️
-                </div>
-              </div>
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
-                <div className="h-10 w-10 rounded-full bg-secondary/20 backdrop-blur-md border border-secondary/50 flex items-center justify-center">
-                  <Avatar className="h-full w-full">
-                    <AvatarImage src="https://i.pravatar.cc/100?img=33" />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
-            </div>
-
-            {/* Orbiting Elements - Ring 2 */}
-            <div className="absolute w-[450px] h-[450px] animate-spin [animation-duration:35s] [animation-direction:reverse]">
-              <div className="absolute top-1/4 left-0 -translate-x-1/2">
-                <div className="h-14 w-14 rounded-2xl bg-blue-500/20 backdrop-blur-md border border-blue-500/50 flex items-center justify-center text-2xl">
-                  🌍
-                </div>
-              </div>
-              <div className="absolute bottom-1/4 right-0 translate-x-1/2">
-                <div className="h-12 w-12 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-500/50 flex items-center justify-center overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=100&q=80" alt="Plane" className="h-full w-full object-cover" />
-                </div>
-              </div>
-            </div>
-
-            {/* Orbiting Elements - Ring 3 */}
-            <div className="absolute w-[600px] h-[600px] animate-spin [animation-duration:50s]">
-              <div className="absolute top-1/2 right-0 translate-x-1/2">
-                <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium">
-                  JFK ↔ PAR $340
-                </div>
-              </div>
-              <div className="absolute bottom-0 left-1/4 translate-y-1/2">
-                <div className="h-16 w-16 rounded-2xl bg-pink-500/20 backdrop-blur-md border border-pink-500/50 flex items-center justify-center text-3xl">
-                  🏖️
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        {/* Trusted By Strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mt-32 w-full border-t border-white/5 pt-8"
+        >
+          <p className="text-xs text-center text-muted-foreground uppercase tracking-widest mb-6">Trusted by travelers from</p>
+          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+            {/* Simple Text Logos for Elegance */}
+            <span className="text-xl font-bold font-serif">VOGUE</span>
+            <span className="text-xl font-bold font-mono">WIRED</span>
+            <span className="text-xl font-bold tracking-widest">EXPEDIA</span>
+            <span className="text-xl font-bold italic">KAYAK</span>
+          </div>
+        </motion.div>
       </section>
 
-      {/* How It Works Section */}
-      <section id="how-it-works" className="relative py-20 px-4">
+      {/* Features Section - Bento Grid */}
+      <section id="how-it-works" className="py-32 px-6">
         <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              The Farely System 🎯
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our 3-checkpoint scoring ensures you only see the absolute best deals
+          <div className="mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">The Farely Standard.</h2>
+            <p className="text-xl text-muted-foreground max-w-xl">
+              Precision engineered deal discovery. We don't just find flights; we architect journeys.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: "💸",
-                title: "Price (40%)",
-                description: "Under average for the route, ideally <$300. We track historical data to spot real bargains.",
-              },
-              {
-                icon: "🛋️",
-                title: "Comfort (30%)",
-                description: "30\"+ legroom, WiFi, entertainment. We favor full-service over ultra-budget carriers.",
-              },
-              {
-                icon: "⚡",
-                title: "Speed (30%)",
-                description: "Direct or 1-stop max, <10hr/leg. Your time is precious—we respect that.",
-              },
-            ].map((checkpoint, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 text-center hover:bg-white/10 transition-colors"
-              >
-                <div className="text-5xl mb-4">{checkpoint.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{checkpoint.title}</h3>
-                <p className="text-muted-foreground">{checkpoint.description}</p>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            {/* Main Feature - Large */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="md:col-span-2 row-span-1 rounded-3xl border border-white/10 bg-card/50 backdrop-blur-xl p-8 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                <TrendingUp className="w-48 h-48" />
+              </div>
+              <div className="h-full flex flex-col justify-end relative z-10">
+                <div className="h-12 w-12 rounded-2xl bg-primary/20 flex items-center justify-center mb-4 text-primary">
+                  <TrendingUp className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Algorithmic Pricing</h3>
+                <p className="text-muted-foreground max-w-md">Our propriety engine scans 500+ sources hourly, locking in prices 40% below market average before the public sees them.</p>
+              </div>
+            </motion.div>
+
+            {/* Feature 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="md:col-span-1 rounded-3xl border border-white/10 bg-card/50 backdrop-blur-xl p-8 flex flex-col justify-between group"
+            >
+              <div className="h-12 w-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400">
+                <Armchair className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Comfort First</h3>
+                <p className="text-muted-foreground">We filter out the misery. Minimum 30" legroom and top-tier carriers only.</p>
+              </div>
+            </motion.div>
+
+            {/* Feature 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="md:col-span-1 rounded-3xl border border-white/10 bg-card/50 backdrop-blur-xl p-8 flex flex-col justify-between"
+            >
+              <div className="h-12 w-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400">
+                <Zap className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">No Layovers</h3>
+                <p className="text-muted-foreground">Direct or single-stop optimized. Your time is the most valuable asset.</p>
+              </div>
+            </motion.div>
+
+            {/* Feature 4 - Image/Graphic */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="md:col-span-2 rounded-3xl border border-white/10 bg-gradient-to-br from-card/50 to-primary/5 p-8 flex flex-col justify-center items-center text-center relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-20 mix-blend-overlay hover:scale-105 transition-transform duration-700" />
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold mb-4">Join 20,000+ Travelers</h3>
+                <div className="flex -space-x-4 justify-center py-4">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="h-12 w-12 rounded-full border-2 border-background bg-zinc-800 bg-cover bg-center" style={{ backgroundImage: `url(https://i.pravatar.cc/100?img=${i + 10})` }} />
+                  ))}
+                  <div className="h-12 w-12 rounded-full border-2 border-background bg-primary flex items-center justify-center text-xs font-bold">+20k</div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Email Signup Section */}
-      <section className="relative py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
+      <section className="relative py-32 px-6 border-t border-white/5 bg-white/[0.02]">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-4xl font-bold mb-6">Ready to Take Off?</h2>
+          <p className="text-muted-foreground mb-12">Join our exclusive list. No spam, just world-class opportunities.</p>
           <EmailSignupForm />
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative py-12 px-4 border-t border-white/10">
-        <div className="container mx-auto max-w-6xl text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Plane className="h-5 w-5 text-primary" />
-            <span className="text-lg font-bold">
-              Fare<span className="text-primary">ly</span>
-            </span>
+      <footer className="relative py-12 px-6 border-t border-white/5 bg-black/20">
+        <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-8">
+          <div className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+              <Plane className="h-4 w-4 text-primary" />
+            </div>
+            <span className="text-xl font-bold tracking-tight">Farely</span>
           </div>
-          <p className="text-sm text-muted-foreground mb-2">
-            Curating the best backpacker flight deals since 2025
+
+          <p className="text-sm text-muted-foreground">
+            © 2025 Farely Inc. Curated with <span className="text-primary">♥</span> in the Cloud.
           </p>
-          <p className="text-xs text-muted-foreground">
-            We earn a small commission at no extra cost to you. Your support keeps Farely free! 🙏
-          </p>
-          <div className="mt-8 flex justify-center opacity-10 hover:opacity-50 transition-opacity duration-500">
-            <button
-              onClick={() => navigate("/admin/login")}
-              onMouseEnter={() => {
-                // Preload Admin pages
-                import("./AdminLogin.tsx");
-                import("./AdminDashboard.tsx");
-              }}
-              className="p-2 text-muted-foreground/40 hover:text-primary transition-colors cursor-pointer"
-            >
-              <Lock className="h-4 w-4" />
-            </button>
-          </div>
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/admin/login")}
+            className="text-muted-foreground hover:text-foreground opacity-50 hover:opacity-100"
+          >
+            <Lock className="h-3 w-3 mr-2" /> Admin Access
+          </Button>
         </div>
       </footer>
     </div>

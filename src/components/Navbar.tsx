@@ -17,11 +17,9 @@ export function Navbar() {
   const location = useLocation();
   const { isAuthenticated, isLoading } = useConvexAuth();
   const [hasVisitedDashboard, setHasVisitedDashboard] = useState(() => {
-    // Check sessionStorage on initial render
     return sessionStorage.getItem(DASHBOARD_VISITED_KEY) === "true";
   });
 
-  // Track when user visits dashboard and store in sessionStorage
   useEffect(() => {
     if (location.pathname === "/dashboard") {
       sessionStorage.setItem(DASHBOARD_VISITED_KEY, "true");
@@ -29,105 +27,105 @@ export function Navbar() {
     }
   }, [location.pathname]);
 
-  // Show dashboard button if authenticated OR if user has visited dashboard this session
   const showDashboard = isAuthenticated || hasVisitedDashboard;
 
   return (
     <motion.nav
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-4 md:top-6 left-0 right-0 mx-auto z-50 w-[95%] md:w-[90%] max-w-5xl rounded-full border border-white/10 bg-black/20 backdrop-blur-md shadow-lg"
+      className="fixed top-6 left-0 right-0 mx-auto z-50 w-[95%] md:w-[85%] max-w-5xl rounded-full border border-white/5 bg-black/40 backdrop-blur-xl shadow-2xl"
     >
-      <div className="px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div
-            className="flex items-center gap-2 cursor-pointer group"
-            onClick={() => navigate("/")}
+      <div className="px-6 h-14 flex items-center justify-between">
+        {/* Logo */}
+        <div
+          className="flex items-center gap-2 cursor-pointer group"
+          onClick={() => navigate("/")}
+        >
+          <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center transition-colors group-hover:bg-primary/30">
+            <Plane className="h-4 w-4 text-primary group-hover:rotate-12 transition-transform duration-300" />
+          </div>
+          <span className="text-lg font-bold tracking-tight">Farely</span>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            How It Works
+          </a>
+          <button
+            onClick={() => navigate("/pricing")}
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            <div className="relative">
-              <Plane className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform duration-300" />
-              <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:bg-primary/40 transition-colors duration-300" />
-            </div>
-            <span className="text-lg font-bold tracking-tight">
-              Fare<span className="text-primary">ly</span>
-            </span>
-          </div>
+            Pricing
+          </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              How It Works
-            </a>
-            <button
-              onClick={() => navigate("/pricing")}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          <div className="h-4 w-[1px] bg-white/10 mx-2" />
+
+          {!isLoading && showDashboard ? (
+            <Button
+              variant="secondary"
+              size="sm"
+              className="rounded-full h-9 px-5 font-semibold shadow-none hover:bg-secondary/80"
+              onClick={() => navigate("/dashboard")}
             >
-              Pricing
-            </button>
-            {!isLoading && showDashboard ? (
-              <Button
-                variant="outline"
-                size="sm"
-                className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 h-9 px-4"
-                onClick={() => navigate("/dashboard")}
+              Dashboard
+            </Button>
+          ) : !isLoading ? (
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate("/auth")}
+                className="text-sm font-medium hover:text-primary transition-colors px-2"
               >
-                Dashboard
+                Log In
+              </button>
+              <Button
+                size="sm"
+                className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground border-none h-9 px-5 font-semibold shadow-[0_0_15px_rgba(var(--primary),0.3)] transition-all hover:scale-105"
+                onClick={() => navigate("/auth")}
+              >
+                Join Now
               </Button>
-            ) : !isLoading ? (
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => navigate("/auth")}
-                  className="text-sm font-medium hover:text-primary transition-colors"
-                >
-                  Log In
-                </button>
-                <Button
-                  size="sm"
-                  className="rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/10 h-9 px-4"
-                  onClick={() => navigate("/auth")}
-                >
-                  Join Now
-                </Button>
-              </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
+        </div>
 
-          {/* Mobile Navigation */}
-          <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              key={`sheet-${isAuthenticated}-${isLoading}`}
-              className="bg-background/95 backdrop-blur-xl border-white/10"
-            >
-              <div className="flex flex-col gap-4 mt-8">
-                <a href="#how-it-works" className="text-lg hover:text-primary transition-colors">
-                  How It Works
-                </a>
-                <button
-                  onClick={() => navigate("/pricing")}
-                  className="text-lg hover:text-primary transition-colors text-left"
-                >
-                  Pricing
-                </button>
-                {!isLoading && showDashboard ? (
-                  <Button onClick={() => navigate("/dashboard")}>
-                    Dashboard
-                  </Button>
-                ) : !isLoading ? (
-                  <Button onClick={() => navigate("/auth")}>
+        {/* Mobile Navigation */}
+        <Sheet>
+          <SheetTrigger asChild className="md:hidden">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            key={`sheet-${isAuthenticated}-${isLoading}`}
+            className="bg-background/95 backdrop-blur-xl border-white/10"
+          >
+            <div className="flex flex-col gap-6 mt-10">
+              <a href="#how-it-works" className="text-xl font-semibold hover:text-primary transition-colors">
+                How It Works
+              </a>
+              <button
+                onClick={() => navigate("/pricing")}
+                className="text-xl font-semibold hover:text-primary transition-colors text-left"
+              >
+                Pricing
+              </button>
+              <div className="h-[1px] bg-white/10 w-full" />
+              {!isLoading && showDashboard ? (
+                <Button size="lg" className="w-full" onClick={() => navigate("/dashboard")}>
+                  Dashboard
+                </Button>
+              ) : !isLoading ? (
+                <div className="flex flex-col gap-3">
+                  <Button size="lg" className="w-full" onClick={() => navigate("/auth")}>
                     Sign In
                   </Button>
-                ) : null}
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
+                </div>
+              ) : null}
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </motion.nav>
   );
