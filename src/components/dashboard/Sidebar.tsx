@@ -19,7 +19,7 @@ export function Sidebar({ className }: SidebarProps) {
         { icon: Ticket, label: "My Trips", path: "/dashboard/trips" },
         { icon: Bell, label: "Alerts", path: "/dashboard/alerts" },
         { icon: HistoryIcon, label: "History", path: "/dashboard/history" },
-        { icon: Settings, label: "Settings", path: "/dashboard/settings" },
+        { icon: Settings, label: "Subscription", path: "/dashboard/settings" },
     ];
 
     return (

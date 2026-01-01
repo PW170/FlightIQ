@@ -9,15 +9,13 @@ export default function Dashboard() {
     const deals = useQuery(api.flights.getDailyDeals);
     const user = useQuery(api.users.currentUser);
 
-    const userName = user?.name || (user?.email?.split('@')[0]) || "Traveler";
-
     return (
         <DashboardLayout>
             <div className="max-w-7xl mx-auto space-y-8">
                 {/* Welcome Header */}
                 <div className="pb-2">
-                    <h1 className="text-3xl font-bold tracking-tight italic">Welcome back, {userName}</h1>
-                    <p className="text-muted-foreground">Here's what we found for you today.</p>
+                    <h1 className="text-3xl font-bold tracking-tight italic">Flight Discovery</h1>
+                    <p className="text-muted-foreground">The best opportunities detected in the last 24 hours.</p>
                 </div>
 
                 {/* Stats Row */}
